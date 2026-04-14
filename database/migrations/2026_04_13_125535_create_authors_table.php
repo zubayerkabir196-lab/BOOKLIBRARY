@@ -11,13 +11,14 @@ return new class extends Migration
      */
     public function up(): void
     {
-        Schema::create('categories', function (Blueprint $table) {
-            $table->id(); 
+        Schema::create('authors', function (Blueprint $table) {
+            $table->id();
+            $table->foreignId('user_id')->constrained('users')->onDelete('cascade');
             $table->string('name');
-            $table->text('description')->nullable();
+            $table->string('email')->unique();
             $table->integer('books_count')->default(0);
             $table->enum('status', ['active', 'inactive'])->default('active');
-            $table->timestamps();        
+            $table->timestamps();
         });
     }
 
@@ -26,6 +27,6 @@ return new class extends Migration
      */
     public function down(): void
     {
-        Schema::dropIfExists('categories');
+        Schema::dropIfExists('authors');
     }
 };

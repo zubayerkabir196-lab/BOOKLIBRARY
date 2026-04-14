@@ -75,7 +75,18 @@
       <div
         class="bg-white glass rounded-2xl shadow-xl p-8 transition-all duration-300 hover:shadow-2xl"
       >
-        <form class="space-y-6 animate-fadeIn" action="" method="" enctype="">
+
+      @if ($errors->any())
+  <div class="bg-red-50 border border-red-200 text-red-700 px-4 py-3 rounded-xl mb-6">
+    <p class="font-semibold mb-1">Please fix the following errors:</p>
+    <ul class="list-disc list-inside text-sm space-y-1">
+      @foreach ($errors->all() as $error)
+        <li>{{ $error }}</li>
+      @endforeach
+    </ul>
+  </div>
+@endif
+        <form class="space-y-6 animate-fadeIn" action="{{route('loginAuth')}}" method="POST">
           @csrf
           <div>
             <label class="block text-sm font-semibold text-gray-700 mb-2"
@@ -102,6 +113,7 @@
               </div>
               <input
                 type="email"
+                name ="email"
                 class="w-full pl-10 pr-3 py-3 border border-gray-200 rounded-xl focus:outline-none focus:ring-2 focus:ring-indigo-500 focus:border-transparent input-focus transition-all duration-300"
                 placeholder="you@example.com"
               />
@@ -140,6 +152,7 @@
               </div>
               <input
                 type="password"
+                name="password"
                 class="w-full pl-10 pr-3 py-3 border border-gray-200 rounded-xl focus:outline-none focus:ring-2 focus:ring-indigo-500 focus:border-transparent input-focus transition-all duration-300"
                 placeholder="••••••••"
               />
@@ -182,6 +195,7 @@
           </button>
         </form>
       </div>
+
 
       <div class="text-center text-sm text-black-600">
         <p>

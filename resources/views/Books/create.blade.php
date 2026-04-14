@@ -1,10 +1,25 @@
+@extends('layout1')
+@section('page-title','Create Book')
+@section('page-subtitle','Add a new book to the collection')
+@section('content')
 <div class="flex-1 p-6 lg:p-8">
           <!-- Create Form -->
           <div class="max-w-3xl">
             <div class="bg-white rounded-xl shadow overflow-hidden">
               <div class="bg-gradient-tor from-indigo-500 to-purple-600 h-2"></div>
-              <form class="p-6 space-y-6" action="" method="" enctype="">
+              <form class="p-6 space-y-6" action="{{route('Books.store')}}" method="POST" enctype="multipart/form-data">
                 @csrf
+
+                @if ($errors->any())
+    <div class="bg-red-50 border border-red-200 text-red-700 px-4 py-3 rounded-xl mb-6">
+        <p class="font-semibold mb-1">Please fix the following errors:</p>
+        <ul class="list-disc list-inside text-sm">
+            @foreach ($errors->all() as $error)
+                <li>{{ $error }}</li>
+            @endforeach
+        </ul>
+    </div>
+@endif
                 <!-- Book Cover Upload -->
                 <div>
                   <label class="block text-sm font-medium text-gray-700 mb-2">Book Cover</label>
@@ -28,14 +43,14 @@
                         class="upload-zone rounded-lg p-6 text-center cursor-pointer"
                         onclick="document.getElementById('coverImage').click()"
                       >
-                        <input
-                          type="file"
-                          id="coverImage"
-                          name="coverImage"
-                          accept="image/*"
-                          class="hidden"
-                          onchange="previewImage(event)"
-                        />
+                      <input
+                        type="file"
+                        id="coverImage"
+                        name="cover"
+                        accept="image/*"
+                        class="hidden"
+                        onchange="previewImage(event)"
+                    />
                         <svg xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 24 24" stroke-width="1.5" stroke="currentColor" class="w-10 h-10 text-gray-400 mx-auto mb-3">
                           <path stroke-linecap="round" stroke-linejoin="round" d="M3 16.5v2.25A2.25 2.25 0 005.25 21h13.5A2.25 2.25 0 0021 18.75V16.5m-13.5-9L12 3m0 0l4.5 4.5M12 3v13.5" />
                         </svg>
@@ -80,14 +95,14 @@
                     <label for="author" class="block text-sm font-medium text-gray-700 mb-2">Author <span class="text-red-500">*</span></label>
                     <select
                       id="author"
-                      name="author"
+                      name="author_name"
                       required
                       class="w-full px-4 py-3 border border-gray-300 rounded-lg focus:ring-2 focus:ring-indigo-500 focus:border-indigo-500 transition-colors"
                     >
-                      <option value="">Select an author</option>
-                      <option value="1">J.K. Rowling</option>
-                      <option value="2">Stephen King</option>
-                      <option value="3">George Orwell</option>
+                    <option value="">Select an author</option>
+                      @foreach($authors as $author)
+                          <option value="{{ $author->id }}">{{ $author->name }}</option>
+                      @endforeach
                     </select>
                   </div>
 
@@ -99,10 +114,10 @@
                       required
                       class="w-full px-4 py-3 border border-gray-300 rounded-lg focus:ring-2 focus:ring-indigo-500 focus:border-indigo-500 transition-colors"
                     >
-                      <option value="">Select a category</option>
-                      <option value="1">Fiction</option>
-                      <option value="2">Science</option>
-                      <option value="3">History</option>
+                 <option value="">Select a category</option>
+                  @foreach($categories as $category)
+                      <option value="{{ $category->id }}">{{ $category->name }}</option>
+                  @endforeach
                     </select>
                   </div>
                 </div>
@@ -133,7 +148,7 @@
 
                 <div class="flex items-center justify-end space-x-4 pt-4">
                   <a
-                    href="./book-list.html"
+                    href="{{route('Books.index')}}"
                     class="px-6 py-3 border border-gray-300 rounded-lg text-gray-600 hover:text-gray-800 hover:border-gray-400 transition-all duration-200"
                   >
                     Cancel
@@ -151,3 +166,4 @@
         </div>
       </main>
     </div>
+@endsection

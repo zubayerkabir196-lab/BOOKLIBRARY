@@ -1,7 +1,7 @@
 @extends('layout1')
-@section('page-title','Create Author')
-@section('add-link',route('authors.create'))
-@section('page-subtitle','Add a new author to the collection')
+@section('page-title','Edit Author')
+@section('add-link',route('authors.edit',$author->id))
+@section('page-subtitle','Edit author to the collection')
 @section('content')
     <!-- Content -->
     <div class="flex-1 p-6 lg:p-8">
@@ -30,6 +30,7 @@
             type="text"
             id="name"
             name="name"
+            value="{{ old('name',$author->name) }}"
             required
             minlength="2"
             maxlength="255"
@@ -47,6 +48,7 @@
             type="email"
             id="email"
             name="email"
+            value="{{ old('name',$author->email) }}"
             required
             class="w-full px-4 py-3 border border-gray-300 rounded-lg focus:ring-2 focus:ring-indigo-500 focus:border-indigo-500 transition-colors"
             placeholder="Enter author email"
@@ -62,6 +64,7 @@
             type="number"
             id="books_count"
             name="books_count"
+            value="{{ old('name',$author->books_count) }}"
             required
             min="0"
             class="w-full px-4 py-3 border border-gray-300 rounded-lg focus:ring-2 focus:ring-indigo-500 focus:border-indigo-500 transition-colors"
@@ -80,8 +83,8 @@
             required
             class="w-full px-4 py-3 border border-gray-300 rounded-lg focus:ring-2 focus:ring-indigo-500 focus:border-indigo-500 transition-colors"
           >
-            <option value="active">Active</option>
-            <option value="inactive">Inactive</option>
+            <option value="active" @selected(old('status',$author->status)==='active')>Active</option>
+            <option value="inactive" @selected(old('status',$author->status)==='inactive')>Inactive</option>
           </select>
         </div>
 
@@ -94,10 +97,12 @@
             Cancel
           </a>
           <button
+          <a href = "{{ route('authors.update', ['author' => $author->id]) }}"
             type="submit"
             class="px-6 py-3 bg-gradient-to-r from-indigo-600 to-purple-600 text-white rounded-lg hover:from-indigo-700 hover:to-purple-700 transition-all duration-200 shadow-md"
           >
-            Create Author
+            Update Author
+            </a>
           </button>
         </div>
       </form>

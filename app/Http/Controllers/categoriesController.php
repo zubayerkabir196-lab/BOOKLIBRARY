@@ -1,19 +1,18 @@
 <?php
 
 namespace App\Http\Controllers;
-
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\DB;
 
-class AuthorController extends Controller
+class categoriesController extends Controller
 {
     /**
      * Display a listing of the resource.
      */
     public function index()
     {
-        $authors = DB::table('authors')->get();
-        return view('authors.index',compact('authors'));
+        $categories = DB::table('categories')->get();
+        return view('categories.index',compact('categories'));
     }
 
     /**
@@ -21,7 +20,7 @@ class AuthorController extends Controller
      */
     public function create()
     {
-        return view('authors.create');
+        return view('categories.create');
     }
 
     /**
@@ -31,14 +30,14 @@ class AuthorController extends Controller
     {
         $validated = $request->validate([
             'name'=>'required|string|min:2|max:255',
-            'email'=>'required|email|unique:authors',
+            'description' => 'required|string|min:10',
             'books_count'=>'required|integer|min:0',
             'status'=>'required|in:active,inactive',
 
         ]);
-        DB::table('authors')->insert([
+        DB::table('categories')->insert([
             'name'=>$validated['name'],
-            'email'=>$validated['email'],
+            'description'=>$validated['description'],
             'books_count'=>$validated['books_count'],
             'status'=>$validated['status'],
             'user_id'=> auth()->id(),
@@ -46,7 +45,7 @@ class AuthorController extends Controller
             'updated_at'=>now(),
         ]);
         
-        return redirect()->route('authors.index')->with('success','Author created successfully');
+        return redirect()->route('categories.index')->with('success','categories created successfully');
     }
 
     /**
@@ -62,8 +61,8 @@ class AuthorController extends Controller
      */
     public function edit(string $id)
     {
-        $author =DB::table('authors')->find($id);
-        return view('authors.edit',compact('author'));
+        $category =DB::table('categories')->find($id);
+        return view('categories.edit',compact('category'));
     }
 
     /**
@@ -73,19 +72,19 @@ class AuthorController extends Controller
     {
         $validated = $request->validate([
             'name'=>'required|string|min:2|max:255',
-            'email' => 'required|email|unique:authors,email,'.$id,
+            'description' => 'required|string|min:10',
             'books_count'=>'required|integer|min:0',
             'status'=>'required|in:active,inactive',
         ]);
-        DB::table('authors')->where('id',$id)->update([
+        DB::table('categories')->where('id',$id)->update([
             'name'=>$validated['name'],
-            'email'=>$validated['email'],
+            'description'=>$validated['description'],
             'books_count'=>$validated['books_count'],
             'status'=>$validated['status'],
-            'created_at'=>$validated['created_at'],
-            'updated_at'=>$validated['updated_at'],
+           
+            'updated_at'=>now(),
         ]);
-        return redirect()->route('authors.index')->with('success','Author updated successfully');
+        return redirect()->route('categories.index')->with('success','categories  updated successfully');
     }
 
     /**
@@ -93,7 +92,7 @@ class AuthorController extends Controller
      */
     public function destroy(string $id)
     {
-        DB::table('authors')->where('id',$id)->delete();
-        return redirect()->route('authors.index')->with('success','Author deleted successfully');
+        DB::table('categories')->where('id',$id)->delete();
+        return redirect()->route('categories.index')->with('success','categories deleted successfully');
     }
 }

@@ -1,4 +1,3 @@
-
 <!doctype html>
 <html lang="en">
   <head>
@@ -119,7 +118,7 @@
             </div>
 
             <a
-              href="{{route('category-list')}}"
+              href="{{route('categories.index')}}"
               class="flex items-center space-x-3 p-3 rounded-lg sidebar-link"
             >
               <svg
@@ -159,7 +158,7 @@
               <span class="font-medium">Authors</span>
             </a>
             <a
-              href="{{route('book-list')}}"
+              href="{{route('Books.index')}}"
               class="flex items-center space-x-3 p-3 rounded-lg sidebar-link"
             >
               <svg
@@ -227,8 +226,8 @@
                     AJ
                   </div>
                   <div class="hidden md:block text-left">
-                    <p class="text-sm font-medium text-gray-700">Alex Johnson</p>
-                    <p class="text-xs text-gray-500">alex.johnson@example.com</p>
+                    <p class="text-sm font-medium text-gray-700">{{ auth()->user()->name }}</p>
+                    <p class="text-xs text-gray-500"> {{ auth()->user()->email }} </p>
                   </div>
                   <svg xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 24 24" stroke-width="1.5" stroke="currentColor" class="w-5 h-5 text-gray-400">
                     <path stroke-linecap="round" stroke-linejoin="round" d="M19.5 8.25l-7.5 7.5-7.5-7.5" />
@@ -241,8 +240,8 @@
                   class="dropdown-menu absolute right-0 mt-2 w-56 bg-white rounded-xl shadow-lg border py-2"
                 >
                   <div class="px-4 py-3 border-b">
-                    <p class="text-sm font-medium text-gray-900">Alex Johnson</p>
-                    <p class="text-xs text-gray-500 truncate">alex.johnson@example.com</p>
+                    <p class="text-sm font-medium text-gray-900">{{ auth()->user()->name }}</p>
+                    <p class="text-xs text-gray-500 truncate">{{ auth()->user()->email}}</p>
                   </div>
                   <a
                     href="{{route('dashboard')}}"

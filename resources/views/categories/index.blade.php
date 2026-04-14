@@ -1,12 +1,15 @@
 @extends('layout1')
-@section('page-title','Author')
-@section('page-subtitle','List of Authors')
+@section('page-title','Category-List')
+@section('page-subtitle','List of Categories')
 @section('add')
-    <a href="{{ route('authors.create') }}">Add Author</a>
+    <a href="{{ route('categories.create') }}">Create Category</a>
 @endsection
 
 @section('content')
-<div class="flex-1 p-6 lg:p-8">
+        <!-- Content -->
+        <div class="flex-1 p-6 lg:p-8">
+
+        <!-- Categories List -->
         <div class="bg-white rounded-xl shadow overflow-hidden">
           <div class="bg-gradient-tor from-indigo-500 to-purple-600 h-2"></div>
           <div class="overflow-x-auto">
@@ -15,23 +18,23 @@
                 <tr>
                   <th class="px-6 py-4 text-left text-xs font-semibold text-gray-500 uppercase tracking-wider">ID</th>
                   <th class="px-6 py-4 text-left text-xs font-semibold text-gray-500 uppercase tracking-wider">Name</th>
-                  <th class="px-6 py-4 text-left text-xs font-semibold text-gray-500 uppercase tracking-wider">Email</th>
+                  <th class="px-6 py-4 text-left text-xs font-semibold text-gray-500 uppercase tracking-wider">Description</th>
                   <th class="px-6 py-4 text-left text-xs font-semibold text-gray-500 uppercase tracking-wider">Books Count</th>
                   <th class="px-6 py-4 text-left text-xs font-semibold text-gray-500 uppercase tracking-wider">Status</th>
                   <th class="px-6 py-4 text-left text-xs font-semibold text-gray-500 uppercase tracking-wider">Actions</th>
                 </tr>
               </thead>
               <tbody class="divide-y divide-gray-200">
-  @forelse($authors as $author)
+  @forelse($categories as $category)
     <tr class="hover:bg-gray-50 transition-colors">
-      <td class="px-6 py-4 text-sm text-gray-600">#{{ $author->id }}</td>
+      <td class="px-6 py-4 text-sm text-gray-600">#{{ $category->id }}</td>
       <td class="px-6 py-4">
-        <div class="font-medium text-gray-800">{{ $author->name }}</div>
+        <div class="font-medium text-gray-800">{{ $category->name }}</div>
       </td>
-      <td class="px-6 py-4 text-sm text-gray-600">{{ $author->email }}</td>
-      <td class="px-6 py-4 text-sm text-gray-600">{{ $author->books_count }}</td>
+      <td class="px-6 py-4 text-sm text-gray-600">{{ $category->description }}</td>
+      <td class="px-6 py-4 text-sm text-gray-600">{{ $category->books_count }}</td>
       <td class="px-6 py-4">
-        @if($author->status === 'active')
+        @if($category->status === 'active')
           <span class="inline-flex items-center px-2.5 py-0.5 rounded-full text-xs font-medium bg-green-100 text-green-800">Active</span>
         @else
           <span class="inline-flex items-center px-2.5 py-0.5 rounded-full text-xs font-medium bg-red-100 text-red-800">Inactive</span>
@@ -40,7 +43,7 @@
       <td class="px-6 py-4">
         <div class="flex items-center space-x-2">
           <!-- Edit Button -->
-          <a href="{{ route('authors.edit', ['author' => $author->id]) }}"
+          <a href="{{ route('categories.edit', $category->id) }}"
             class="text-indigo-600 hover:text-indigo-800 transition-colors">
             <svg xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 24 24" stroke-width="1.5" stroke="currentColor" class="w-5 h-5">
               <path stroke-linecap="round" stroke-linejoin="round" d="M16.862 4.487l1.687-1.688a1.875 1.875 0 112.652 2.652L6.832 19.82a4.5 4.5 0 01-1.897 1.13l-2.685.8.8-2.685a4.5 4.5 0 011.13-1.897L16.863 4.487zm0 0L19.5 7.125" />
@@ -48,8 +51,8 @@
           </a>
 
           <!-- Delete Button -->
-          <form action="{{ route('authors.destroy', $author->id) }}" method="POST"
-                onsubmit="return confirm('Are you sure you want to delete this author?');">
+          <form action="{{ route('categories.destroy', $category->id) }}" method="POST"
+                onsubmit="return confirm('Are you sure you want to delete this category?');">
             @csrf
             @method('DELETE')
             <button type="submit" class="text-red-600 hover:text-red-800 transition-colors">
@@ -63,7 +66,7 @@
     </tr>
   @empty
     <tr>
-      <td colspan="6" class="px-6 py-10 text-center text-gray-400">No authors found.</td>
+      <td colspan="6" class="px-6 py-10 text-center text-gray-400">No categories found.</td>
     </tr>
   @endforelse
 </tbody>
@@ -71,5 +74,5 @@
           </div>
         </div>
       </main>
-</div>
+    </div>
 @endsection

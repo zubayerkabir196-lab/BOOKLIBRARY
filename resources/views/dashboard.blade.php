@@ -154,7 +154,7 @@
             </div>
 
             <a
-              href="{{route('category-list')}}"
+              href="{{route('categories.index')}}"
               class="flex items-center space-x-3 p-3 rounded-lg sidebar-link"
             >
               <svg
@@ -174,7 +174,7 @@
               <span class="font-medium">Categories</span>
             </a>
             <a
-              href="{{route('author-list')}}"
+              href="{{route('authors.index')}}"
               class="flex items-center space-x-3 p-3 rounded-lg sidebar-link"
             >
               <svg
@@ -194,7 +194,7 @@
               <span class="font-medium">Authors</span>
             </a>
             <a
-              href="{{route('book-list')}}"
+              href="{{route('Books.index')}}"
               class="flex items-center space-x-3 p-3 rounded-lg sidebar-link"
             >
               <svg
@@ -286,7 +286,7 @@
         >
           <div>
             <h2 class="text-2xl font-bold text-gray-800">My Dashboard</h2>
-            <p class="text-gray-600">Welcome back, Alex Johnson!</p>
+            <p class="text-gray-600"> Welcome Back  {{ auth()->user()->name }} !</p>
           </div>
           <div class="flex items-center space-x-4 mt-4 md:mt-0">
             <button onclick="window.location.href='{{route('login')}}'" class="flex items-center space-x-2 px-4 py-2 bg-white border border-gray-200 rounded-lg text-gray-600 hover:text-indigo-600 hover:border-indigo-600 transition-all duration-200">
@@ -307,21 +307,23 @@
             <div class="p-6">
               <div class="flex flex-col md:flex-row md:items-center">
                 <div class="flex-shrink-">
-                  <div
-                    class="w-24 h-24 rounded-full bg-gradient-tor from-indigo-100 to-purple-100 flex items-center justify-center text-3xl font-bold text-indigo-600"
-                  >
-                    AJ
-                  </div>
+                <div class="w-24 h-24 rounded-full bg-gradient-tor from-indigo-100 to-purple-100 flex items-center justify-center text-3xl font-bold text-indigo-600">
+    @php
+        $nameParts = explode(' ', auth()->user()->name);
+        $initials = strtoupper(implode('', array_map(fn($part) => substr($part, 0, 1), $nameParts)));
+    @endphp
+    {{ $initials }}
+</div>
                 </div>
                 <div class="mt-4 md:mt-0 md:ml-6 flex-1">
-                  <h3 class="text-xl font-bold text-gray-800">Alex Johnson</h3>
+                  <h3 class="text-xl font-bold text-gray-800"> {{ auth()->user()->name }}</h3>
                 </div>
               </div>
 
               <div class="mt-8">
                 <div class="p-4 border rounded-lg">
                   <p class="text-gray-500 text-sm">Email</p>
-                  <p class="font-medium">alex.johnson@example.com</p>
+                  <p class="font-medium"> {{ auth()->user()->email }}</p>
                 </div>
               </div>
             </div>

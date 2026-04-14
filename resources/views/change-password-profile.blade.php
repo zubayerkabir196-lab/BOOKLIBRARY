@@ -107,7 +107,7 @@
                 <div class="flex justify-end pt-4">
                   <button
                     type="submit"
-                    class="px-6 py-2.5 bg-gradient-tor from-indigo-600 to-purple-600 text-white font-medium rounded-xl hover:from-indigo-700 hover:to-purple-700 focus:outline-none focus:ring-2 focus:ring-offset-2 focus:ring-indigo-500 transition-all duration-300 shadow-lg hover:shadow-xl transform hover:-translate-y-0.5"
+                    class="px-6 py-2.5 bg-gradient-tor from-indigo-600 to-purple-600 text-black font-medium rounded-xl hover:from-indigo-700 hover:to-purple-700 focus:outline-none focus:ring-2 focus:ring-offset-2 focus:ring-indigo-500 transition-all duration-300 shadow-lg hover:shadow-xl transform hover:-translate-y-0.5"
                   >
                     Update Password
                   </button>

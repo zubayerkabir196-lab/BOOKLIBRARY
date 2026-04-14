@@ -6,27 +6,21 @@ use Illuminate\Support\Facades\Schema;
 
 return new class extends Migration
 {
-    /**
-     * Run the migrations.
-     */
     public function up(): void
     {
-        Schema::create('authors', function (Blueprint $table) {
-            $table->id(); 
+        Schema::create('users', function (Blueprint $table) {
+            $table->id();
             $table->string('name');
             $table->string('email')->unique();
-            $table->integer('books_count')->default(0); 
-            $table->enum('status', ['active', 'inactive'])->default('active');
+            $table->string('password');
+            $table->timestamp('email_verified_at')->nullable();
+            $table->rememberToken();
             $table->timestamps();
-        
         });
     }
 
-    /**
-     * Reverse the migrations.
-     */
     public function down(): void
     {
-        Schema::dropIfExists('authors');
+        Schema::dropIfExists('users');
     }
 };

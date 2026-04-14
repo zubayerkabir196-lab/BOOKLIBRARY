@@ -1,8 +1,23 @@
+@extends('layout1')
+@section('page-title','Create Category')
+@section('Page-subtitle','Add a new category to the collection')
+@section('content')
 <div class="flex-1 p-6 lg:p-8">
         <div class="max-w-2xl">
           <div class="bg-white rounded-xl shadow overflow-hidden">
             <div class="bg-gradient-tor from-indigo-500 to-purple-600 h-2"></div>
-            <form class="p-6 space-y-6" action="" method="">
+            <form class="p-6 space-y-6" action="{{route('categories.store')}}" method="POST">
+                @csrf
+        <!-- Name -->
+        @if ($errors->any())
+    <div class="bg-red-100 text-red-700 p-4 rounded mb-4">
+        <ul>
+            @foreach ($errors->all() as $error)
+                <li>{{ $error }}</li>
+            @endforeach
+        </ul>
+    </div>
+@endif
               <div>
                 <label for="name" class="block text-sm font-medium text-gray-700 mb-2">Category Name <span class="text-red-500">*</span></label>
                 <input
@@ -62,7 +77,7 @@
                 </a>
                 <button
                   type="submit"
-                  class="px-6 py-3 bg-gradient-tor from-indigo-600 to-purple-600 text-white rounded-lg hover:from-indigo-700 hover:to-purple-700 transition-all duration-200 shadow-md"
+                  class="px-6 py-3 bg-gradient-tor from-indigo-600 to-purple-600 text-black rounded-lg hover:from-indigo-700 hover:to-purple-700 transition-all duration-200 shadow-md"
                 >
                   Create Category
                 </button>
@@ -72,3 +87,4 @@
         </div>
       </main>
     </div>
+@endsection
