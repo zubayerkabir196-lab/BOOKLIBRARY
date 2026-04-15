@@ -10,6 +10,7 @@
       <div class="bg-gradient-to-r from-indigo-500 to-purple-600 h-2"></div>
       <form class="p-6 space-y-6" action="{{ route('categories.update',$category->id) }}" method="POST">
         @csrf
+        @method('PUT')
         <!-- Name -->
         @if ($errors->any())
     <div class="bg-red-100 text-red-700 p-4 rounded mb-4">

@@ -53,7 +53,7 @@ class BooksController extends Controller
 
         DB::table('books')->insert([
             'id'          => (string) Str::uuid(),
-            'user_id'     => (string) auth()->id(), // ✅
+            'user_id'     => (string) auth()->id(), 
             'title'       => $validated['title'],
             'author_id'   => $validated['author_id'],
             'category_id' => $validated['category_id'],
@@ -89,11 +89,20 @@ class BooksController extends Controller
         $categories = DB::table('categories')
             ->where('user_id', auth()->id()) // ✅
             ->get();
-        return view('Books.edit', compact('book', 'authors', 'categories'));
+            $statuses = [
+                'available' => 'Available',
+                'borrowed'  => 'Borrowed',
+                'reserved'  => 'Reserved',
+            ];
+        
+        return view('Books.edit', compact('book', 'authors', 'categories','statuses'));
     }
 
     public function update(Request $request, string $id)
     {
+         
+        //dd($request->all());
+
         $validated = $request->validate([
             'title'       => 'required|string|min:2|max:255',
             'author_id'   => 'required|exists:authors,id',
@@ -115,7 +124,7 @@ class BooksController extends Controller
 
         DB::table('books')
             ->where('id', $id)
-            ->where('user_id', auth()->id()) // ✅
+            ->where('user_id', auth()->id())
             ->update([
                 'title'       => $validated['title'],
                 'author_id'   => $validated['author_id'],
@@ -134,7 +143,7 @@ class BooksController extends Controller
     {
         DB::table('books')
             ->where('id', $id)
-            ->where('user_id', auth()->id()) // ✅
+            ->where('user_id', auth()->id()) 
             ->delete();
         return redirect()->route('Books.index')->with('success', 'Book deleted successfully');
     }

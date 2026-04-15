@@ -5,6 +5,7 @@ use App\Http\Controllers\AuthorController;
 use App\Http\Controllers\categoriesController;
 use App\Http\Controllers\BooksController;
 use App\Http\Controllers\Auth\RegisterController;
+use App\Http\Controllers\ProfileController;
 
 Route::get('/', function () {
     return view('welcome');
@@ -17,6 +18,10 @@ Route::middleware('auth')->group(function () {
     Route::resource('authors', AuthorController::class);
     Route::resource('categories', categoriesController::class);
     Route::resource('Books', BooksController::class);
+   // Route::get('/edit-profile',  [ProfileController::class, 'edit'])->name('profile.edit');
+    Route::put('/edit-profile',  [ProfileController::class, 'update'])->name('profile.update');
+    Route::put('/change-password',  [ProfileController::class, 'updatePassword'])->name('password.update');
+
 });
 
 

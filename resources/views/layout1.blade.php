@@ -94,7 +94,7 @@
           <nav class="space-y-1">
             <a
               href="{{route('dashboard')}}"
-              class="flex items-center space-x-3 p-3 rounded-lg sidebar-link"
+             class="flex items-center space-x-3 p-3 rounded-lg sidebar-link {{ request()->routeIs('dashboard') ? 'active' : '' }}"
             >
               <svg
                 xmlns="http://www.w3.org/2000/svg"
@@ -119,7 +119,7 @@
 
             <a
               href="{{route('categories.index')}}"
-              class="flex items-center space-x-3 p-3 rounded-lg sidebar-link"
+              class="flex items-center space-x-3 p-3 rounded-lg sidebar-link {{ request()->routeIs('categories.*') ? 'active' : '' }}"
             >
               <svg
                 xmlns="http://www.w3.org/2000/svg"
@@ -139,7 +139,7 @@
             </a>
             <a
               href="{{route('authors.index')}}"
-              class="flex items-center space-x-3 p-3 rounded-lg sidebar-link active"
+             class="flex items-center space-x-3 p-3 rounded-lg sidebar-link {{ request()->routeIs('authors.*') ? 'active' : '' }}"
             >
               <svg
                 xmlns="http://www.w3.org/2000/svg"
@@ -159,7 +159,7 @@
             </a>
             <a
               href="{{route('Books.index')}}"
-              class="flex items-center space-x-3 p-3 rounded-lg sidebar-link"
+              class="flex items-center space-x-3 p-3 rounded-lg sidebar-link {{ request()->routeIs('Books.*') ? 'active' : '' }}"
             >
               <svg
                 xmlns="http://www.w3.org/2000/svg"
@@ -254,7 +254,7 @@
                   </a>
                   <a
                     href="{{route('edit-profile')}}"
-                    class="flex items-center space-x-3 px-4 py-2.5 text-sm text-gray-700 hover:bg-gray-50 transition-colors"
+                    class="flex items-center space-x-3 p-3 rounded-lg sidebar-link {{ request()->routeIs('edit-profile.*') ? 'active' : '' }}"
                   >
                     <svg xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 24 24" stroke-width="1.5" stroke="currentColor" class="w-5 h-5 text-gray-400">
                       <path stroke-linecap="round" stroke-linejoin="round" d="M16.862 4.487l1.687-1.688a1.875 1.875 0 112.652 2.652L6.832 19.82a4.5 4.5 0 01-1.897 1.13L6 18l.8-2.685a4.5 4.5 0 011.13-1.897l8.932-8.931zm0 0L19.5 7.125M18 14v4.75A2.25 2.25 0 0115.75 21H5.25A2.25 2.25 0 013 18.75V8.25A2.25 2.25 0 015.25 6H10" />
@@ -263,7 +263,7 @@
                   </a>
                   <a
                     href="{{route('change-password')}}"
-                    class="flex items-center space-x-3 px-4 py-2.5 text-sm text-gray-700 hover:bg-gray-50 transition-colors"
+                    class="flex items-center space-x-3 p-3 rounded-lg sidebar-link {{ request()->routeIs('change-password.*') ? 'active' : '' }}"
                   >
                     <svg xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 24 24" stroke-width="1.5" stroke="currentColor" class="w-5 h-5 text-gray-400">
                       <path stroke-linecap="round" stroke-linejoin="round" d="M16.5 10.5V6.75a4.5 4.5 0 10-9 0v3.75m-.75 11.25h10.5a2.25 2.25 0 002.25-2.25v-6.75a2.25 2.25 0 00-2.25-2.25H6.75a2.25 2.25 0 00-2.25 2.25v6.75a2.25 2.25 0 002.25 2.25z" />

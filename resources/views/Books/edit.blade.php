@@ -7,8 +7,9 @@
           <div class="max-w-3xl">
             <div class="bg-white rounded-xl shadow overflow-hidden">
               <div class="bg-gradient-tor from-indigo-500 to-purple-600 h-2"></div>
-              <form class="p-6 space-y-6" action="" method="" enctype="">
+              <form class="p-6 space-y-6" action="{{route('Books.update',$book->id)}}" method="POST" enctype="multipart/form-data">
                 @csrf
+                @method('PUT')
                 <!-- Book Cover Upload -->
                 <div>
                   <label class="block text-sm font-medium text-gray-700 mb-2">Book Cover</label>
@@ -35,7 +36,7 @@
                         <input
                           type="file"
                           id="coverImage"
-                          name="coverImage"
+                          name="cover"
                           accept="image/*"
                           class="hidden"
                           onchange="previewImage(event)"
@@ -60,6 +61,7 @@
                       type="text"
                       id="title"
                       name="title"
+                      value="{{ old('title', $book->title) }}"
                       required
                       class="w-full px-4 py-3 border border-gray-300 rounded-lg focus:ring-2 focus:ring-indigo-500 focus:border-indigo-500 transition-colors"
                       placeholder="Enter book title"
@@ -72,6 +74,7 @@
                       type="text"
                       id="isbn"
                       name="isbn"
+                        value="{{ old('isbn', $book->isbn) }}"
                       required
                       class="w-full px-4 py-3 border border-gray-300 rounded-lg focus:ring-2 focus:ring-indigo-500 focus:border-indigo-500 transition-colors"
                       placeholder="978-0-7475-3269-9"
@@ -81,17 +84,19 @@
 
                 <div class="grid grid-cols-1 md:grid-cols-2 gap-6">
                   <div>
-                    <label for="author" class="block text-sm font-medium text-gray-700 mb-2">Author <span class="text-red-500">*</span></label>
+                    <label for="author_id" class="block text-sm font-medium text-gray-700 mb-2">Author <span class="text-red-500">*</span></label>
                     <select
                       id="author"
-                      name="author"
+                      name="author_id"
                       required
                       class="w-full px-4 py-3 border border-gray-300 rounded-lg focus:ring-2 focus:ring-indigo-500 focus:border-indigo-500 transition-colors"
                     >
-                      <option value="">Select an author</option>
-                      <option value="1">J.K. Rowling</option>
-                      <option value="2">Stephen King</option>
-                      <option value="3">George Orwell</option>
+                    @foreach($authors as $author)
+                      <option value="{{ $author->id }}" 
+                          {{ old('author_id', $book->author_id) == $author->id ? 'selected' : '' }}>
+                          {{ $author->name }}
+                      </option>
+                  @endforeach
                     </select>
                   </div>
 
@@ -99,14 +104,17 @@
                     <label for="category" class="block text-sm font-medium text-gray-700 mb-2">Category <span class="text-red-500">*</span></label>
                     <select
                       id="category"
-                      name="category"
+                      name="category_id"
                       required
                       class="w-full px-4 py-3 border border-gray-300 rounded-lg focus:ring-2 focus:ring-indigo-500 focus:border-indigo-500 transition-colors"
                     >
-                      <option value="">Select a category</option>
-                      <option value="1">Fiction</option>
-                      <option value="2">Science</option>
-                      <option value="3">History</option>
+                    @foreach($categories as $category)
+                    <option value="{{ $category->id }}" 
+                        {{ old('category_id', $book->category_id) == $category->id ? 'selected' : '' }}>
+                        {{ $category->name }}
+                    </option>
+                     @endforeach
+
                     </select>
                   </div>
                 </div>
@@ -116,10 +124,11 @@
                   <textarea
                     id="description"
                     name="description"
+                  
                     rows="4"
                     class="w-full px-4 py-3 border border-gray-300 rounded-lg focus:ring-2 focus:ring-indigo-500 focus:border-indigo-500 transition-colors resize-none"
                     placeholder="Enter book description"
-                  ></textarea>
+                  >  {{ old('description', $book->description) }}</textarea>
                 </div>
 
                 <div>
@@ -129,15 +138,17 @@
                     name="status"
                     class="w-full px-4 py-3 border border-gray-300 rounded-lg focus:ring-2 focus:ring-indigo-500 focus:border-indigo-500 transition-colors"
                   >
-                    <option value="available">Available</option>
-                    <option value="borrowed">Borrowed</option>
-                    <option value="reserved">Reserved</option>
+                  @foreach($statuses as $value => $label)
+                      <option value="{{ $value }}" {{ old('status', $book->status) == $value ? 'selected' : '' }}>
+                          {{ $label }}
+                      </option>
+                  @endforeach
                   </select>
                 </div>
 
                 <div class="flex items-center justify-end space-x-4 pt-4">
                   <a
-                    href="./book-list.html"
+                    href="{{ route('Books.index') }}"
                     class="px-6 py-3 border border-gray-300 rounded-lg text-gray-600 hover:text-gray-800 hover:border-gray-400 transition-all duration-200"
                   >
                     Cancel
@@ -146,7 +157,7 @@
                     type="submit"
                     class="px-6 py-3 bg-gradient-tor from-indigo-600 to-purple-600 text-black rounded-lg hover:from-indigo-700 hover:to-purple-700 transition-all duration-200 shadow-md"
                   >
-                    Create Book
+                    Update Book
                   </button>
                 </div>
               </form>
