@@ -26,7 +26,7 @@
                   <tr class="hover:bg-gray-50 transition-colors">
                     <td class="px-6 py-4">
                       <img
-                        src="{{ asset('storage/' . $book->cover_image) }}"
+                        src="{{ asset('storage/' . $book->cover) }}"
                         alt="Book Cover"
                         class="w-12 h-16 object-cover rounded-lg shadow-sm"
                       />
@@ -34,10 +34,10 @@
                     <td class="px-6 py-4">
                       <div class="font-medium text-gray-800">{{ $book->title }}</div>
                     </td>
-                    <td class="px-6 py-4 text-sm text-gray-600">{{ $book->author_name }}</td>
+                    <td class="px-6 py-4 text-sm text-gray-600">{{ $book->author_id }}</td>
                     <td class="px-6 py-4">
                       <span class="inline-flex items-center px-2.5 py-0.5 rounded-full text-xs font-medium bg-indigo-100 text-indigo-800">
-                        {{ $book->category_name }}
+                        {{ $book->category_id }}
                       </span>
                     </td>
                     <td class="px-6 py-4 text-sm text-gray-600">{{ $book->isbn }}</td>

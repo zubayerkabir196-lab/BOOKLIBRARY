@@ -3,96 +3,92 @@
 namespace App\Http\Controllers;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\DB;
+use Illuminate\Support\Str;
 
 class categoriesController extends Controller
 {
-    /**
-     * Display a listing of the resource.
-     */
     public function index()
     {
-        $categories = DB::table('categories')->get();
-        return view('categories.index',compact('categories'));
+        $categories = DB::table('categories')
+        ->where('user_id', auth()->id())  // ✅ only get logged in user's categories
+        ->get();
+    
+    return view('categories.index', compact('categories'));
     }
 
-    /**
-     * Show the form for creating a new resource.
-     */
     public function create()
     {
         return view('categories.create');
     }
 
-    /**
-     * Store a newly created resource in storage.
-     */
     public function store(Request $request)
     {
-        $validated = $request->validate([
-            'name'=>'required|string|min:2|max:255',
-            'description' => 'required|string|min:10',
-            'books_count'=>'required|integer|min:0',
-            'status'=>'required|in:active,inactive',
 
+        $validated = $request->validate([
+            'name'        => 'required|string|min:2|max:255',
+            'description' => 'nullable|string|min:10',
+            'books_count' => 'required|integer|min:0',
+            'status'      => 'required|in:active,inactive',
         ]);
+
         DB::table('categories')->insert([
-            'name'=>$validated['name'],
-            'description'=>$validated['description'],
-            'books_count'=>$validated['books_count'],
-            'status'=>$validated['status'],
-            'user_id'=> auth()->id(),
-            'created_at'=>now(),
-            'updated_at'=>now(),
+            'id'          => (string) Str::uuid(), // ✅ cast to string
+            'user_id'     => (string) auth()->id(), // ✅ cast to string
+            'name'        => $validated['name'],
+            'description' => $validated['description'] ?? null,
+            'books_count' => $validated['books_count'],
+            'status'      => $validated['status'],
+            'created_at'  => now(),
+            'updated_at'  => now(),
         ]);
-        
-        return redirect()->route('categories.index')->with('success','categories created successfully');
+
+        return redirect()->route('categories.index')->with('success', 'Category created successfully');
     }
 
-    /**
-     * Display the specified resource.
-     */
     public function show(string $id)
     {
-        //
+        $category = DB::table('categories')->where('id', $id)->first();
+        return view('categories.show', compact('category'));
     }
 
-    /**
-     * Show the form for editing the specified resource.
-     */
     public function edit(string $id)
     {
-        $category =DB::table('categories')->find($id);
-        return view('categories.edit',compact('category'));
+        $category = DB::table('categories')
+        ->where('id', $id)
+        ->where('user_id', auth()->id())  // ✅
+        ->first();
+    
+    return view('categories.edit', compact('category'));
     }
 
-    /**
-     * Update the specified resource in storage.
-     */
     public function update(Request $request, string $id)
     {
         $validated = $request->validate([
-            'name'=>'required|string|min:2|max:255',
-            'description' => 'required|string|min:10',
-            'books_count'=>'required|integer|min:0',
-            'status'=>'required|in:active,inactive',
+            'name'        => 'required|string|min:2|max:255',
+            'description' => 'nullable|string|min:10',
+            'books_count' => 'required|integer|min:0',
+            'status'      => 'required|in:active,inactive',
         ]);
-        DB::table('categories')->where('id',$id)->update([
-            'name'=>$validated['name'],
-            'description'=>$validated['description'],
-            'books_count'=>$validated['books_count'],
-            'status'=>$validated['status'],
-           
-            'updated_at'=>now(),
+
+        DB::table('categories')
+        ->where('id', $id)
+        ->where('user_id', auth()->id())->update([
+            'name'        => $validated['name'],
+            'description' => $validated['description'] ?? null,
+            'books_count' => $validated['books_count'],
+            'status'      => $validated['status'],
+            'updated_at'  => now(),
         ]);
-        return redirect()->route('categories.index')->with('success','categories  updated successfully');
+
+        return redirect()->route('categories.index')->with('success', 'Category updated successfully');
     }
 
-    /**
-     * Remove the specified resource from storage.
-     */
     public function destroy(string $id)
     {
-        DB::table('categories')->where('id',$id)->delete();
-        return redirect()->route('categories.index')->with('success','categories deleted successfully');
+        DB::table('categories')
+        ->where('id', $id)
+        ->where('user_id', auth()->id())  // ✅
+        ->delete();
+        return redirect()->route('categories.index')->with('success', 'Category deleted successfully');
     }
 }

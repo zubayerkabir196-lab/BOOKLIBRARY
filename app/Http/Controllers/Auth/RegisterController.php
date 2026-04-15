@@ -7,6 +7,7 @@ use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Auth;
 use Illuminate\Support\Facades\Hash;
 use Illuminate\Support\Facades\DB;
+use Illuminate\Support\Str;
 
 
 class RegisterController extends Controller
@@ -30,7 +31,8 @@ class RegisterController extends Controller
 
         // 2. Insert into database
          DB::table('users')->insert([
-            'name'       => $request->name,
+            'id'         => Str::uuid(),
+            'full_name'       => $request->name,
             'email'      => $request->email,
             'password'   => Hash::make($request->password),
             'created_at' => now(),

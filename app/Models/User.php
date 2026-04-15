@@ -45,4 +45,6 @@ class User extends Authenticatable
             'password' => 'hashed',
         ];
     }
+    public $incrementing = false;  // ✅ stops casting UUID to integer
+    protected $keyType = 'string'; // ✅ keeps it as string/UUID
 }
