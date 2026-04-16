@@ -125,11 +125,7 @@
               <label class="block text-sm font-semibold text-gray-700"
                 >Password</label
               >
-              <a
-                href="#"
-                class="text-sm font-medium text-indigo-600 hover:text-indigo-500 transition-colors"
-                >Forgot password?</a
-              >
+  
             </div>
             <div class="relative">
               <div
