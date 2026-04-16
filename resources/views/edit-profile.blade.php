@@ -4,7 +4,7 @@
 @section('profile_section')
 <div class="max-w-4xl">
   <div class="bg-white rounded-xl shadow overflow-hidden">
-    <div class="bg-gradient-to-r from-indigo-500 to-purple-600 h-2"></div> {{-- ✅ fixed gradient --}}
+    <div class="bg-gradient-to-r from-purple-500 to-indigo-600 h-2"></div> 
     <div class="p-6">
 
       @if(session('success'))
@@ -65,8 +65,8 @@
               </div>
               <input
                 type="email"
-                name="email"                                           {{-- ✅ added name --}}
-                value="{{ old('email', auth()->user()->email) }}"      {{-- ✅ real user data --}}
+                name="email"                                           
+                value="{{ old('email', auth()->user()->email) }}"      
                 class="w-full pl-10 pr-3 py-3 border border-gray-200 rounded-xl focus:outline-none focus:ring-2 focus:ring-indigo-500 focus:border-transparent transition-all duration-300"
                 placeholder="you@example.com"
                 required

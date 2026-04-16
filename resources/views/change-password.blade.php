@@ -83,7 +83,7 @@
               </div>
               <input
                 type="password"
-                name="password_confirmation"     {{-- ✅ added name --}}
+                name="password_confirmation"    e
                 class="w-full pl-10 pr-3 py-3 border border-gray-200 rounded-xl focus:outline-none focus:ring-2 focus:ring-indigo-500 focus:border-transparent transition-all duration-300"
                 placeholder="••••••••"
               />
@@ -93,11 +93,12 @@
         </div>
 
         <div class="flex justify-end pt-4">
-          <button
-            type="submit"
-            class="px-6 py-2.5 bg-gradient-to-r from-indigo-600 to-purple-600 text-white font-medium rounded-xl hover:from-indigo-700 hover:to-purple-700 focus:outline-none focus:ring-2 focus:ring-offset-2 focus:ring-indigo-500 transition-all duration-300 shadow-lg hover:shadow-xl transform hover:-translate-y-0.5"
-          >                                      
-
+        <button
+  type="submit"
+  class="px-8 py-3 bg-gradient-to-r from-indigo-600 to-purple-600 text-white font-semibold text-sm rounded-xl hover:from-indigo-700 hover:to-purple-700 focus:outline-none focus:ring-2 focus:ring-offset-2 focus:ring-indigo-500 transition-all duration-300 shadow-lg hover:shadow-xl transform hover:-translate-y-0.5"
+>
+  Update Password
+</button>
       </form>
     </div>
   </div>
